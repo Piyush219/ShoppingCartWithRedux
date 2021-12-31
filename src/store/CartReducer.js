@@ -15,13 +15,33 @@ const cartSlice = createSlice({
     },
     cartItems(state, action) {
       console.log(action.payload);
-      state.cartItems = [...state.cartItems, action.payload];
+      console.log("title",action.payload.title)
+      const checkItem = state.cartItems.find(item => item.title === action.payload.title)
+      if(checkItem){
+        console.log("checkinc")
+          checkItem.quantity++
+          checkItem.total = checkItem.price*checkItem.quantity
+      }
+      else{
+        console.log('checkelse')
+        state.cartItems.push(action.payload)
+      }
+      
     },
-    increaseQuantity(state){
-        state.quantity++
+    increaseQuantity(state,action){
+      const increaseItem = state.cartItems.find(item => item.title === action.payload)
+      increaseItem.quantity++
+      increaseItem.total = increaseItem.quantity * increaseItem.price
     },
-    decreaseQuantity(state){
-        state.quantity--
+    decreaseQuantity(state,action){
+      const decreaseItem = state.cartItems.find(item => item.title === action.payload)
+    
+        decreaseItem.quantity--
+        decreaseItem.total = decreaseItem.quantity * decreaseItem.price
+      
+      },
+      removeCartItem(state,action){
+        state.cartItems = state.cartItems.filter(item => item.title!==action.payload)
     }
   },
 });

@@ -1,5 +1,5 @@
 import classes from './CartButton.module.css';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { cartActions } from '../../store/CartReducer';
 
 const CartButton = (props) => {
@@ -8,11 +8,13 @@ const CartButton = (props) => {
   const toggleShowCartHandler = () => {
     dispatch(cartActions.showCart())
   }
+  const cart = useSelector(state => state.cart.cartItems)
+  const cartLength = cart.length;
 
   return (
     <button onClick={toggleShowCartHandler} className={classes.button}>
       <span>My Cart</span>
-      <span className={classes.badge}>1</span>
+      <span className={classes.badge}>{cartLength}</span>
     </button>
   );
 };
