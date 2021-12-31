@@ -8,7 +8,7 @@ const CartItem = (props) => {
   const cartItems = useSelector(state => state.cart.cartItems)
 
   const removeItemHandler = (item) =>{
-    if(item.quantity<1){
+    if(item.quantity===1){
       dispatch(cartActions.removeCartItem(item.title))
     }
       else{
